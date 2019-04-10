@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block add %}
+
+{% if user.is_authenticated %}
+<li class="cl-effect-11"><a href="#" data-hover="{{user.username}}">{{user.username}}</a></li>
+
+<li class="cl-effect-11"><a href="{% url 'account:logout' %}?next={{request.path}}" data-hover="退出">退出</a></li>
+<li class="cl-effect-11"><a href="{% url 'account:password_change' %}?next={{request.path}}" data-hover="修改密码">修改密码</a></li>
+
+{% else %}
+<li class="cl-effect-11"><a href="{% url 'account:login' %}?next={{request.path}}" data-hover="登录">登录</a></li>
+{% endif %}
+
+{% endblock add %}
+
+{% block main %}
+{% load blog_tags %}
+
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+  {% endif %}
+                {% for post in post_list %}
+                <article class="post post-{{post.id}}">
+                    <div class="home-post well clearfix">
+                        <div class="post-title underline clearfix">
+                            <a href="{{post.get_absolute_url}}"></a>
+
+                            <h3>
+                                <strong><a href="{{post.get_absolute_url}}">{{post.title}}</a></strong>
+                            </h3>
+
+                            <div class="post-info">
+
+                                <span>
+
+                                    <i class="iconfont icon-icon_calendar"></i>
+                                    {{ post.created_time }}
+                                </span>
+                                <span>
+                                    <i class="iconfont icon-icon_sms"></i>
+                                    {{post.comment_set.count}}
+                                </span>
+                                <span>
+                                    <span class="iconfont icon-liulan"></span>
+                                    {{ post.views }}
+                                </span>
+                                <div class="post-tags">
+
+                                        {% get_tags as tag_list %}
+                                            <ul>
+                                                {% for tag in tag_list %}
+                                                <li>
+                                                    <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>
+                                                </li>
+                                                {% empty %}
+                                                暂无标签
+                                                {% endfor %}
+                                            </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="row">
+
+
+                                <div class="col-md-6">
+                                    <a href="/article/71/">
+                                        <p>
+                                            {{ post.excerpt }}...
+                                        </p>
+                                    </a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a type="button" class="btn btn-raised btn-info"
+                                       style="float:right;margin-top: 6px;margin-right: 6px" href="{{post.get_absolute_url}}">阅读全文</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </article>
+                {% empty %}
+                <div class="no-post">暂时还没有文章</div>
+                {% endfor %}
+
+                <div class="text-center">
+                {% if is_paginated %}
+                <div class="pagination">
+                    {% if first %}
+                    <a href="?page=1">1</a>
+                    {% endif %}
+                    {% if left %}
+                        {% if left_has_more %}
+                            <span>...</span>
+                        {% endif %}
+                        {% for i in left %}
+                            <a href="?page={{i}}">{{i}}</a>
+                        {% endfor %}
+                    {% endif %}
+                    <a class="current-page" href="?page={{ page_obj.number }}" >{{ page_obj.number }}</a>
+                    {% if right %}
+                        {% for i in right %}
+                            <a href="?page={{i}}">{{i}}</a>
+                        {% endfor %}
+                        {% if right_has_more %}
+                            <span>...</span>
+                        {% endif %}
+                    {% endif %}
+                    {% if last %}
+                    <a href="?page={{paginator.num_pages}}">{{paginator.num_pages}}</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                    </div>
+
+
+{% endblock main %}

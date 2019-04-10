@@ -1,0 +1,8 @@
+{% load i18n %}
+
+{% block title %}{% trans "New password set" %}{% endblock %}
+
+{% block content %}
+	<p>{% trans "Your password has successfully been reset. You can use it right now on the login page." %}</p>
+<p>返回<a href="{% url 'account:login' %}">登录页面</a></p>
+{% endblock %}
