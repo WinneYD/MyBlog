@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '$3o!3ohw+!y@8_*1ufbhl(+w30@f7e#hchq0avg3$!t0%g_wjx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.yudan.fun']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.yudan.fun', '120.79.239.82']
 
 
 # Application definition
