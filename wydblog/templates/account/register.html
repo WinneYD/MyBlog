@@ -2,7 +2,7 @@
 {% block main %}
 <div class="row text-center vertical-middle-sm">
     <h1>注册</h1>
-    <p>已有账号 <strong><a href="{% url 'account:login' %}">请登录</a> </strong></p>
+    <p>已有账号 <strong><a href="{% url 'account:login' %}?next=/blog/index/">请登录</a> </strong></p>
 
     <form class="form-horizontal" action="." method="post">{% csrf_token %}
         <div class="form-group">
@@ -24,10 +24,12 @@
             <label for="{{ form.password.id_for_label }}" class="col-md-5 control-label"> 确认密码</label>
             <div class="col-md-6 text-left">{{ form.password2 }}</div>
         </div>
-       <div class="form-group">
+        <!--
+        <div class="form-group">
                 <label for="{{ profile.phone.id_for_label }}" class="col-md-5 control-label">电话号码</label>
-                <div class="col-md-6 text-left">{{ profile.phone }}</div>
+                <div class="col-md-6 text-left">{{ form.phone }}</div>
             </div>
+            -->
 
         <input type="submit" class="btn btn-primary btn-lg" value="注册">
     </form>
