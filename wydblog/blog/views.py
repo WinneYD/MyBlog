@@ -11,7 +11,7 @@ class IndexView(ListView):
     model=Post
     template_name='blog/index.html'
     context_object_name='post_list'
-    paginate_by=3
+    paginate_by=5
     def get_context_data(self,**kwargs):
         '''
         在视图函数中将模板变量传递给模板是通过render函数的context参数传递字典实现，
